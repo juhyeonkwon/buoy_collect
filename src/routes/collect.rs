@@ -27,7 +27,7 @@ pub async fn get_data(data: web::Form<Buoy>) -> impl Responder {
 
     //redis
     let mut conn = connect_redis();
-    let _: () = redis::cmd("LPUSH")
+    let _: () = redis::cmd("RPUSH")
         .arg(key)
         .arg(plane_text)
         .query(&mut conn)

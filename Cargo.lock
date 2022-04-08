@@ -373,6 +373,7 @@ dependencies = [
  "chrono",
  "dotenv",
  "mysql",
+ "rand",
  "redis",
  "serde",
  "serde_derive",

@@ -22,9 +22,9 @@ mod tests {
 
         let mut db = db::maria_lib::DataBase::init();
 
-        db.conn
-            .query_map("SELECT * FROM test", |(idx, test)| Test { idx, test })
-            .expect("query Error occured");
+        // db.conn
+        //     .query_map("SELECT * FROM test", |(idx, test)| Test { idx, test })
+        //     .expect("query Error occured");
     }
 
     #[test]
@@ -37,5 +37,4 @@ mod tests {
             .get_connection()
             .expect("faild to connect to Redis.");
     }
-
 }

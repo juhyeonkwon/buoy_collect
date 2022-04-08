@@ -1,6 +1,6 @@
 use mysql::prelude::*;
 use mysql::*;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::env;
 
 // use actix_web::web::Json;
@@ -12,8 +12,17 @@ pub struct Test {
     pub test: String,
 }
 
-#[derive(Serialize)]
-pub struct Bouy {}
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Buoy {
+    pub time: String,
+    pub model: String,
+    pub lat: f32,
+    pub lon: f32,
+    pub w_temp: f32,
+    pub salinity: f32,
+    pub height: f32,
+    pub weight: f32,
+}
 
 pub struct DataBase {
     pub pool: Pool,
