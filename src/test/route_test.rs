@@ -57,7 +57,6 @@ mod tests {
                     weight: rng.gen_range(40.0..50.0),
             };
             
-            println!("{:#?}", data);
 
             let resp = test::TestRequest::post()
             .uri("/send")

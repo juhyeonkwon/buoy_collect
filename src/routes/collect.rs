@@ -18,7 +18,6 @@ pub struct Buoy {
 
 #[post("/send")]
 pub async fn get_data(data: web::Form<Buoy>) -> impl Responder {
-    println!("{:#?}", data.model);
 
     let plane_text: String = serde_json::to_string(&data).expect("error occured in transform Json");
 
