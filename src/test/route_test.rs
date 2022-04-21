@@ -52,9 +52,9 @@ mod tests {
                     lat: row[n].latitude,
                     lon: row[n].longitude,
                     w_temp: rng.gen_range(12.5..13.5),
-                    salinity: rng.gen_range(30.0..33.0),
-                    height: rng.gen_range(10.0..20.0),
-                    weight: rng.gen_range(40.0..50.0),
+                    salinity: rng.gen_range(28.0..33.0),
+                    height: rng.gen_range(8.0..20.0),
+                    weight: rng.gen_range(40.0..53.0),
             };
             
 
