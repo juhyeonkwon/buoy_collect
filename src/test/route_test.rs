@@ -67,7 +67,8 @@ mod tests {
             assert!(resp.status().is_success());
 
         }
-        
+
+       
         // let data = routes::collect::Buoy {
         //     time: String::from(&now_str[0..19]),
         //     model: String::from("buoy_1"),
@@ -89,5 +90,47 @@ mod tests {
 
         // // let resp = test::call_service(&app, req).await;
         // assert!(resp.status().is_success());
+    }
+
+    #[actix_web::test]
+    // #[test]
+    async fn send_data_test2() {
+        dotenv().ok();
+
+        let mut db = DataBase::init();
+
+        let row = db.conn
+        .query_map("SELECT model, group_id, latitude, longitude FROM buoy_model ORDER BY model_idx",|(model, group_id, latitude, longitude)| Modelinfo {model, group_id, latitude, longitude})
+        .expect("queery Errror");
+
+        let now : DateTime<Local> = Local::now();
+        let now_str = now.to_string();   
+
+        let mut app = test::init_service(App::new().service(routes::collect::get_data)).await;
+
+        for n in 0..2 {
+            let mut rng = rand::thread_rng();
+
+            let data = Buoy {
+                    time: String::from(&now_str[0..19]),
+                    model: String::from("buoy_104"),
+                    lat: row[n].latitude,
+                    lon: row[n].longitude,
+                    w_temp: rng.gen_range(12.5..13.5),
+                    salinity: rng.gen_range(28.0..33.0),
+                    height: rng.gen_range(8.0..20.0),
+                    weight: rng.gen_range(40.0..53.0),
+            };
+            
+
+            let resp = test::TestRequest::post()
+            .uri("/send")
+            .set_form(&data)
+            .send_request(&mut app)
+            .await;
+
+            assert!(resp.status().is_success());
+
+        }
     }
 }

@@ -20,6 +20,8 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(fs::Files::new("/files", "./static"))
             .service(routes::collect::get_data)
+            .service(routes::collect::index)
+            .service(routes::collect::save_file)
     })
     .bind(("127.0.0.1", 3123))?
     .run()
